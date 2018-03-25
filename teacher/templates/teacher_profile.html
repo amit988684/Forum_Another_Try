@@ -1,0 +1,17 @@
+{% extends "teacher_base.html" %}
+{% load staticfiles %}
+{% block title %}
+Profile
+{% endblock %}
+{% block content %}
+    <h1>Depart : {{ teacher.depart }}</h1>
+    <h1>Courses : {{ teacher.course }}</h1>
+    <h1>Contact : {{ teacher.contact }}</h1>
+    <h1>Email : {{ teacher.email }}</h1>
+    <h1>Resume :
+       <embed src="{{ teacher.resume }}" width="20px">{{ teacher.resume }}</embed>
+        <h1>Documents : {% for docu in teacher.docs.all %} <embed src="{{ docu.document_file }}" type="pdf" href="">{{ docu.document_name }}</embed> {% endfor %}</h1>
+
+
+
+{% endblock %}

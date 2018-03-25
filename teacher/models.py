@@ -1,6 +1,7 @@
 from django.db import models
 from student.models import Course,Depart
 from django.contrib.auth.models import User
+from django.conf import settings
 # Create your models here.
 
 
@@ -36,30 +37,30 @@ class DocumentTeacher(models.Model):
 
 class TeacherModel(models.Model):
 
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     default_name = 'teacher'
     first_name = models.CharField(max_length=30,blank=True)
     last_name = models.CharField(max_length=30,blank=True)
 
     depart = models.ForeignKey(Depart)
-    course = models.ManyToManyField(Course)
+    course = models.ForeignKey(Course,blank=True,null=True)
 
     contact = models.CharField(max_length=20,null=True,blank=True)
     email = models.EmailField(max_length=50,blank=True)
-    resume = models.FileField(upload_to='teacher_resume', blank=True)
+    resume = models.FileField(upload_to='teacher_resume', blank=True,null=True)
     profile_pic = models.FileField(upload_to='teacher_profile_pic', blank=True)
-
     # documents
-    docs = models.ManyToManyField(DocumentTeacher)
-    assignment = models.ManyToManyField(Assignment)
-    slide = models.ManyToManyField(Slide)
-
-
+    docs = models.ManyToManyField(DocumentTeacher,blank=True)
+    assignment = models.ManyToManyField(Assignment,blank=True)
+    slide = models.ManyToManyField(Slide,blank=True)
     # links
     github = models.URLField(max_length=100,null=True,blank=True)
     linkedin = models.URLField(max_length=100,null=True,blank=True)
     twitter = models.URLField(max_length=100,null=True,blank=True)
     works_links = models.CharField(max_length=200,blank=True)
+
+    # def image_thumbnail(self):
+    #     return '<img src="%s"/>' % self.profile_pic
 
     def __str__(self):
         return self.user.username

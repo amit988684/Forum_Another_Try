@@ -23,9 +23,12 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
 <!--===============================================================================================-->
+    <link rel="stylesheet" href="{% static "login/css/mine.css" %}">
+<!--===============================================================================================-->
 </head>
 <body>
 
+{% if not user.is_authenticated %}
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('{% static 'login/images/img-01.jpg' %}');">
@@ -81,6 +84,22 @@
 
 
 
+{% else %}
+    <!-- If Logged In -->
+<div class="bee">
+  <div class="bee__wing bee__wing--left"></div>
+  <div class="bee__wing bee__wing--right"></div>
+  <div class="bee__oval bee__oval--top"></div>
+  <div class="bee__rect"></div>
+  <div class="bee__rect"> </div>
+  <div class="bee__oval bee__oval--bottom"></div>
+<div class="container" align="center">
+    <br><br><br><br>
+    <!--username = user.username-->
+  <a  href="{% url "teacher_profile" username=user %}"> <input type="button" class="btn btn-primary" value="Go Back"></a>
+</div>
+</div>
+<!--onclick="alert('You are already logged in\nPress Back Button')"-->
 
 <!--===============================================================================================-->
 	<script src="{% static 'login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
@@ -91,6 +110,10 @@
 	<script src="{% static 'login/vendor/select2/select2.min.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'login/js/main.js' %}"></script>
+<!--===============================================================================================-->
+
+{% endif %}
+
 
 </body>
 </html>

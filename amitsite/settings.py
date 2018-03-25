@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blogging',
     'contactapp',
     'teacher',
+    'happenings',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.media',
             ],
         },
     },
@@ -96,6 +98,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -135,5 +138,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/login/vendor'),
 ]
 
+
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
+
+LOGIN_REDIRECT_URL = 'account-redirect'

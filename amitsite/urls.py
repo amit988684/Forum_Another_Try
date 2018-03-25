@@ -13,14 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+# from django.conf.urls import url, include
+from django.conf.urls import *
 from django.contrib import admin
-from blogging import views
+admin.autodiscover()
 
+from blogging import views
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^login/',include('blogging.urls')),
+    url(r'^profile/', include('teacher.urls')),
     url(r'^$', views.user_login, name='user_login'),
     url(r'^logout/', views.user_logout, name='logout'),   # name = 'user_login' is matched to the reverse function in logout view inside views.py..
+    url(r'^calendar/', include('happenings.urls', namespace='calendar')),
 
-]
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
